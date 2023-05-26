@@ -9,7 +9,7 @@
                 <Action ID="PickAction" id="21" server_name="/pick_server" timeout="500"/>
             </Decorator>
             <Decorator ID="RetryUntilSuccessful" num_attempts="4">
-                <Action ID="MoveBaseAction" goal="shelf" server_name="/move_base" timeout="500"/>
+                <Action ID="MoveBaseAction" goal="0;0;0;0;0;0.99;0" server_name="/move_base" timeout="500"/>
             </Decorator>
             <Decorator ID="RetryUntilSuccessful" num_attempts="4">
                 <Action ID="PlaceAction" id="21" server_name="/place_server" timeout="500"/>

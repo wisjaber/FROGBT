@@ -15,8 +15,6 @@ int main(int argc, char **argv)
     RegisterRosService<tag_detection_check>(factory, "tag_detection_check", nh);
     RegisterRosService<vacuum_check>(factory, "vacuum_check", nh);
 
-
-
     // Setup your tree correctly to use relative paths
     // add the xml file with your tree in config folder
     // in getPath input put your package name

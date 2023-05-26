@@ -219,5 +219,8 @@ include_directories(
 # catkin_add_nosetests(test)
 add_executable(first_tree "src/first_tree.cpp")
 target_link_libraries(first_tree  ${catkin_LIBRARIES} stdc++fs)
+
+add_executable(double "scripts/xmltrials/double_tree.cpp")
+target_link_libraries(double  ${catkin_LIBRARIES} stdc++fs)
 # add_executable(move_arm_server "script/move_arm_server")
 # target_link_libraries(move_arm_server  ${catkin_LIBRARIES} stdc++fs)

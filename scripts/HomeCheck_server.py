@@ -18,7 +18,7 @@ from moveit_commander.conversions import pose_to_list, list_to_pose, list_to_pos
 class HomeCheckClass():
     def __init__(self):
         rospy.init_node('HomeCheck_server')
-        rospy.Service('HomeCheck_service', HomeCheck, self.handle_home_check)
+        rospy.Service('HomeCheck_Service', HomeCheck, self.handle_home_check)
         group_name = "panda_arm" 
         self.move_group = MoveGroupCommander(group_name, wait_for_servers=5)
         self.goal = PoseStamped()

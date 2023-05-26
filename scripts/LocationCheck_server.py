@@ -10,7 +10,7 @@ class LocationMonitor():
     def __init__(self):
         rospy.init_node('LocationCheck_server')
         self.LocationCheck_subscriber = rospy.Subscriber("/amcl_pose", PoseWithCovarianceStamped, self.location_cb)
-        rospy.Service('LocationCheck_service', LocationCheck, self.handle_location_check)
+        rospy.Service('LocationCheck_Service', LocationCheck, self.handle_location_check)
         rospy.loginfo("Location Check service is ready.")
         # self.current_location = Pose()
 

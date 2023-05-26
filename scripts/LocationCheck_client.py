@@ -8,10 +8,10 @@ from tree_msgs.srv import LocationCheck, LocationCheckRequest,LocationCheckRespo
 
 def LocationCheck_client():
     rospy.init_node('LocationCheck_client')
-    rospy.wait_for_service('LocationCheck_service')
+    rospy.wait_for_service('LocationCheck_Service')
 
     try:
-        LocationCheckService = rospy.ServiceProxy('LocationCheck_service', LocationCheck)
+        LocationCheckService = rospy.ServiceProxy('LocationCheck_Service', LocationCheck)
         request = Pose()
         request.position.x = -1.4
         request.position.y=-0.5

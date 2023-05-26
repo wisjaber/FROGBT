@@ -23,20 +23,19 @@ class MoveBaseAction: public RosActionNode<move_base_msgs::MoveBaseAction>
 
   bool sendGoal(GoalType& goal) override
     {
-      std::string goalto;
+      // std::string goalto;
+      std::string goalto = getInput<std::string>("goal");
 
-      getInput<std::string>("goal", goalto);
-
-      std::cout << "setting course towards" << goalto<<std::endl;
-      // goal.action = go_to_object_action;
+      std::cout << "setting course towards goal" <<std::endl;
+      Pose3D goal_from_port = convertFromString<Pose3D>(goalto.value())
       goal.target_pose.header.frame_id = "map";
-      goal.target_pose.pose.position.x=0;
-      goal.target_pose.pose.position.y=0;
-      goal.target_pose.pose.position.z=0;
-      goal.target_pose.pose.orientation.x=0;
-      goal.target_pose.pose.orientation.y=0;
-      goal.target_pose.pose.orientation.z=0;
-      goal.target_pose.pose.orientation.w=1;
+      goal.target_pose.pose.position.x=goal_from_port.x;
+      goal.target_pose.pose.position.y=goal_from_port.y;
+      goal.target_pose.pose.position.z=goal_from_port.z;
+      goal.target_pose.pose.orientation.x=goal_from_port.ox;
+      goal.target_pose.pose.orientation.y=goal_from_port.oy;
+      goal.target_pose.pose.orientation.z=goal_from_port.oz;
+      goal.target_pose.pose.orientation.w=goal_from_port.ow;
 
       ROS_INFO("sending request");
       return true;
@@ -350,7 +349,13 @@ class location_check: public RosServiceNode<tree_msgs::LocationCheck>
 
     void sendRequest(RequestType& request) override
     {
-      // request.LocationCheck = Pose(); // insert location pose as a request
+      request.LocationCheck.position.x = 0.0;
+      request.LocationCheck.position.y = 0.0;
+      request.LocationCheck.position.z = .0;
+      request.LocationCheck.orientation.x = .0;
+      request.LocationCheck.orientation.y = .0;
+      request.LocationCheck.orientation.z = .99;
+      request.LocationCheck.orientation.w = .0;
       ROS_INFO("sending location check request");
     }
 

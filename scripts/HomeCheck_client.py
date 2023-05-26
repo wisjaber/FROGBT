@@ -7,10 +7,10 @@ from geometry_msgs.msg import PoseStamped
 
 def HomeCheck_client():
     rospy.init_node('HomeCheck_client')
-    rospy.wait_for_service('HomeCheck_service')
+    rospy.wait_for_service('HomeCheck_Service')
 
     try:
-        HomeCheckService = rospy.ServiceProxy('HomeCheck_service', HomeCheck)
+        HomeCheckService = rospy.ServiceProxy('HomeCheck_Service', HomeCheck)
         request = HomeCheckRequest()
         response = HomeCheckService(request)
     

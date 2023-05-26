@@ -1,0 +1,2 @@
+
+<Action ID="MoveBaseAction" goal="shelf" server_name="/move_base" timeout="500" />

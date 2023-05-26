@@ -1,57 +1,41 @@
 #!/usr/bin/env python3
 
-import rospy
-from std_msgs.msg import Bool
-from geometry_msgs.msg import PoseStamped
-from tree_msgs.srv import LocationCheck, LocationCheckRequest,LocationCheckResponse
-
-
-class LocationMonitor():
-    def __init__(self):
-        rospy.init_node('location_check_server')
-        self.LocationCheck_subscriber = rospy.Subscriber(
-            "/amcl_pose", PoseStamped, self.location_cb
-        )
-        rospy.Service('location_check', LocationCheck, self.handle_location_check)
-        rospy.loginfo("Location Check service is ready.")
-        
-    def location_cb(self, msg: PoseStamped):
-        self._current_location = msg
-
-    def handle_location_check(self,req):
-        # Get the current vacuum state
-        response = self.all_close(req,self._current_location,0.07)
-
-        rospy.loginfo("At requested location: {}".format(response))
-        return LocationCheckResponse(response)
-
-    def all_close(self,goal, actual, tolerance):
-        # return True
-        """
-        Convenience method for testing if a list of values are within a tolerance of their counterparts in another list
-        @param: goal       A list of floats, a Pose or a PoseStamped
-        @param: actual     A list of floats, a Pose or a PoseStamped
-        @param: tolerance  A float
-        @returns: bool
-        """
-        assert type(goal) == type(actual)
-        print("goal",goal)
-        print("pose",actual)
-        if type(goal) is list:
-            for index in range(len(goal)):
-                if abs(actual[index] - goal[index]) > tolerance:
-                    return False
-
-        elif type(goal) is PoseStamped:
-            return self.all_close(goal.pose, actual.pose, tolerance)
-
-        elif type(goal) is Pose:
-            return self.all_close(pose_to_list(goal), pose_to_list(actual), tolerance)
-
-        return True
-    
-        
+from owlready2 import *        
+import os
+from rospkg import RosPack
+from shaka.src.bt_tests.scripts.xmltrials.xml_parser import *
+def setpath():
+    """
+    This function sets the path to the tree xml from the relative path of the package
+    """
+    rp = RosPack()
+    package_path = rp.get_path("bt_tests")
+    relative = os.path.join("include/ontology/IEEE-1872-2015/")
+    path = os.path.join(package_path, relative)
+    return path
 
 if __name__ == "__main__":
-    location_service = LocationMonitor()
-    rospy.spin()
+    onto_path.append(setpath())
+    onto = get_ontology("btowl.owl")
+    onto.load()
+    # sync_reasoner()
+    posc = list(onto.data_properties())
+    print(posc)
+    # st = onto.search(iri = "*tree", mb=onto.search(is_a=onto.MoveBase))
+    # print(st)
+    lookup = onto.Skills.instances()
+    for skill in lookup:
+        if skill.Postcondition == [onto.isAtLocation]:
+            print ("found one",skill)
+            print(skill.hasChecks)
+            for check in skill.hasChecks:
+                check_xml=check.Subtree[0]
+                file_path = "checkxml.xml"
+                create_xml_file(check_xml, file_path)
+            subtree_xml=skill.Subtree[0]
+            file_path = "subtreexml.xml"
+            create_xml_file(subtree_xml, file_path)
+            print(skill.Subtree[0])
+        else: 
+            print("can't find skill")
+    
