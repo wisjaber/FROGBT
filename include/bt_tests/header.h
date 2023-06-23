@@ -35,10 +35,13 @@
 #include <apriltag_filter/FilterAprilTagDetections.h>
 #include <tree_msgs/VacuumCheck.h>
 #include <tree_msgs/LocationCheck.h>
+#include <tree_msgs/MoveArmAction.h>
+
 #include <tree_msgs/PoseCheck.h>
 #include <tree_msgs/HomeCheck.h>  //this one for home pose at the start
 
 #include "types_template.h"
+#include<tree_msgs/GeneratebtAction.h>
 
 using namespace BT;
 

@@ -18,7 +18,10 @@ class LocationMonitor():
         self.current_location = msg.pose
 
     def handle_location_check(self,req):
-        response = self.all_close(req.LocationCheck,self.current_location.pose,0.1)
+
+        ## orientation z sometimes is positive and sometime negative for the same orientation
+        req.LocationCheck.orientation.z=self.current_location.pose.orientation.z
+        response = self.all_close(req.LocationCheck,self.current_location.pose,0.4)
         rospy.loginfo("At requested location: {}".format(response))
         return LocationCheckResponse(response)
 

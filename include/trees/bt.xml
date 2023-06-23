@@ -1,0 +1,15 @@
+<root main_tree_to_execute="BehaviorTree">
+  <BehaviorTree ID="BehaviorTree"><Fallback name="initialising_tree_Fallback"><initialising_tree name="initialising_tree"/><Fallback name="vacuum_check_Fallback"><vacuum_check service_name="VacuumCheckService"/><Sequence name="pick_sequence"><Fallback name="tag_detection_check_Fallback"><tag_detection_check service_name="filter_apriltag_detection" tag="20"/><Sequence name="find_sequence"><SubTree ID="find"/></Sequence></Fallback><location_check service_name="LocationCheck_Service" goal="-2.3;-0.5;0.0;0.0;0.0;0.99;0.0"/><Decorator ID="RetryUntilSuccessful" num_attempts="4">
+                <Action ID="PickAction" tag="20" server_name="/pick_server" timeout="500"/>
+ </Decorator></Sequence></Fallback></Fallback></BehaviorTree>
+<BehaviorTree ID="find">
+    <Sequence name="find_Sequence">
+        <Fallback name="arm_home_Fallback">
+            <arm_home_check service_name="PoseCheckService"/>
+            <MoveArmAction goal="True" server_name="/move_arm_action"/>
+        </Fallback>
+        <Decorator ID="RetryUntilSuccessful" num_attempts="4">
+            <Action ID="MoveBaseAction" goal="-2.3;-0.5;0.0;0.0;0.0;0.99;0.0" server_name="/move_base" timeout="500"/>
+        </Decorator>
+    </Sequence>
+</BehaviorTree></root>

@@ -275,7 +275,7 @@ if __name__ == "__main__":
     tree = BTparsed.update_tree()
     BTparsed.add_groot_node()
     result = Gbt("include/trees/bt.xml")
-    BTparsed.remove_groot_node()
+    # BTparsed.remove_groot_node()
 
     ChecksMonitor = TreeMonitorSubscriber()
     checks,actions,goal_tag,goal_location = parse_goal(action_required,goal_direct,goal_extras)
@@ -286,7 +286,8 @@ if __name__ == "__main__":
         checktree = check.Subtree[0]
         checktree = etree.fromstring(checktree)
         checktree = update_element_values(checktree,update_goal_location(goal_location[1],goal_location[0]), goal_tag)
-        append_under_selector(BTparsed.MainTree,checktree)
+        # BTparsed.MainTree[0].append(checktree)
+        append_under_selector(BTparsed.MainTree[0],checktree)
         BTparsed.write_into_file()
 
         goal_individual = find_individual(goal_direct)

@@ -13,12 +13,12 @@ def LocationCheck_client():
     try:
         LocationCheckService = rospy.ServiceProxy('LocationCheck_Service', LocationCheck)
         request = Pose()
-        request.position.x = -1.4
-        request.position.y=-0.5
+        request.position.x = 0.0
+        request.position.y=-0.0
         # request.position.z=0.0
         # request.orientation.x=0.0
         # request.orientation.y=-0.0
-        request.orientation.z=-0.99
+        request.orientation.z=0.99
         # request.orientation.w=0.0
         response = LocationCheckService(request)
     

@@ -290,25 +290,6 @@
     
 
 
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#arm_home -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#arm_home">
-        <rdf:type rdf:resource="http://www.inf.ufrgs.br/phi-group/ontologies/cora.owl#Robot"/>
-        <Effect rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#movearm"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#arm_home_check -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#arm_home_check">
-        <rdf:type rdf:resource="http://www.inf.ufrgs.br/phi-group/ontologies/cora.owl#Robot"/>
-        <rdf:type rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Checks"/>
-        <isCheckFor rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#arm_home"/>
-    </owl:NamedIndividual>
-    
-
-
     <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#detected -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#detected">
@@ -335,16 +316,6 @@
         &lt;/Decorator&gt;
     &lt;/Sequence&gt;
 &lt;/BehaviorTree&gt;</Treemodel>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#grasped -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#grasped">
-        <rdf:type rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Checks"/>
-        <rdf:type rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Product"/>
-        <Effect rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#pick"/>
     </owl:NamedIndividual>
     
 
@@ -410,17 +381,6 @@
     
 
 
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#movearm -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#movearm">
-        <rdf:type rdf:resource="http://www.inf.ufrgs.br/phi-group/ontologies/cora.owl#Robot"/>
-        <rdf:type rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Skills"/>
-        <Postcondition rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#arm_home"/>
-        <Subtree rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;MoveArmAction goal=&quot;True&quot; server_name=&quot;/move_arm_action&quot;/&gt;</Subtree>
-    </owl:NamedIndividual>
-    
-
-
     <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#movebase -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#movebase">
@@ -437,7 +397,6 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#pick">
         <rdf:type rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Skills"/>
-        <Postcondition rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#grasped"/>
         <Postcondition rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#picked"/>
         <Precondition rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#detected"/>
         <Precondition rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#isAtLocation"/>
@@ -462,10 +421,7 @@
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#picked_check">
         <rdf:type rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Checks"/>
         <isCheckFor rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#picked"/>
-        <Subtree rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;Sequence name=&quot;picked_check_Sequence&quot;&gt;
-&lt;vacuum_check service_name=&quot;VacuumCheckService&quot; /&gt;
-&lt;arm_home_check service_name=&quot;PoseCheckService&quot;/&gt;
-&lt;/Sequence&gt;</Subtree>
+        <Subtree rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;vacuum_check service_name=&quot;VacuumCheckService&quot; /&gt;</Subtree>
     </owl:NamedIndividual>
     
 
@@ -492,7 +448,6 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#vacuumCheck">
         <rdf:type rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Checks"/>
-        <isCheckFor rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#grasped"/>
         <Subtree rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;vacuum_check service_name=&quot;VacuumCheckService&quot;/&gt;</Subtree>
     </owl:NamedIndividual>
     

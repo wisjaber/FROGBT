@@ -1,1 +1,0 @@
-<root BTCPP_format="4"><BehaviorTree ID="MainTree"><Fallback name="Root_Fallback"><location_check service_name="location_checkService" /><Action ID="MoveBaseAction" goal="shelf" server_name="/move_base" timeout="500" /></Fallback></BehaviorTree></root>

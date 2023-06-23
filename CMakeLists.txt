@@ -13,6 +13,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(ROS_DEPENDENCIES
     roscpp std_msgs
     behaviortree_cpp_v3
+    # behaviortree_cpp
     actionlib_msgs
     actionlib
     roscpp
@@ -222,5 +223,7 @@ target_link_libraries(first_tree  ${catkin_LIBRARIES} stdc++fs)
 
 add_executable(double "scripts/xmltrials/double_tree.cpp")
 target_link_libraries(double  ${catkin_LIBRARIES} stdc++fs)
-# add_executable(move_arm_server "script/move_arm_server")
-# target_link_libraries(move_arm_server  ${catkin_LIBRARIES} stdc++fs)
+
+add_executable(genbt "src/generatetree1.cpp")
+target_link_libraries(genbt  ${catkin_LIBRARIES} stdc++fs)
+
