@@ -1,4 +1,6 @@
 #include "header.h"
+// #include "tutorialheader.h"
+
 // #include "behaviortree_cpp/loggers/bt_observer.h"
 
 using namespace BT;
@@ -62,7 +64,7 @@ class BtGeneration
 //     }
 //////////////////////////////////////////////////
 
-    PublisherZMQ publisher_zmq(tree_);
+    PublisherZMQ publisher_zmq(tree_,200);
     status = NodeStatus::IDLE;
     std::cout << "Tree Started" << std::endl;
 
@@ -148,17 +150,3 @@ class BtGeneration
   }
 
 };
-
-
-// int main(int argc, char** argv)
-// {
-//   ros::init(argc, argv, "bt_generation_server");
-
-//   ros::NodeHandle nh;
-//   BtGeneration server(nh, "bt_generation_server");
-//   server.start();
-
-//   ros::spin();
-
-//   return 0;
-// }

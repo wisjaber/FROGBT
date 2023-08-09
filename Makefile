@@ -1,7 +1,9 @@
 # individual nodes 
 
-fix_arm:
-	rosrun bt_tests move_arm_server.py
+.PHONY: arm detections skills tag_check stoef atlas tree tree_server bankai drop reset kitting rbt
+
+arm:
+	rosrun airlab move_arm_server.py
 
 detections:
 	roslaunch albert_skills apriltag_detection.launch --wait 
@@ -26,15 +28,29 @@ atlas:
 
 bankai:
 	rosrun bt_tests genbt
+rbt:
+	rosrun bt_tests RBT
 
-run_stoef:
-	@rosrun apriltag_filter apriltag_filter_single_detection_server_node & \
-	rosrun bt_tests VacuumCheck_server.py & \
-	rosrun bt_tests PoseCheck_server.py & \
-	rosrun bt_tests HomeCheck_server.py & \
-	rosrun bt_tests arm_home_actionserver.py & \
-	rosrun bt_tests LocationCheck_server.py & \
+drop:
+	rosrun actionlib_tools axclient.py /franka_vacuum_gripper/dropoff
+
+stoef:
+	@rosrun bt_tests servers_node_sim.py & \
+	rosrun apriltag_filter apriltag_filter_single_detection_server_node & \
+	rosrun airlab VacuumCheck_server.py & \
+	rosrun airlab PoseCheck_server.py & \
+	rosrun airlab HomeCheck_server.py & \
+	rosrun airlab arm_home_actionserver.py & \
+	rosrun airlab LocationCheck_server.py & \
+	rosrun airlab DeliverCheck_server.py & \
+	rosrun airlab pick_from_floor.py & \
+	rosrun airlab scan_floor.py & \
+	rosrun airlab approach_actionserver.py & \
 	roslaunch albert_skills apriltag_detection.launch --log & \
 	roslaunch albert_skills load_skills_moveit.launch --log
 
-.PHONY: fix_arm detections skills tag_check run_stoef atlas tree tree_server bankai
+reset:
+	rosrun bt_tests reset_onto.py
+
+kitting:
+	rosrun bt_tests servers_node.py

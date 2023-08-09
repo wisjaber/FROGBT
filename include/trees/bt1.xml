@@ -1,37 +1,10 @@
-<root BTCPP_format="4">
-  <BehaviorTree ID="MainTree"> 
-      <Sequence>
-            <initialising_tree name="initialising_tree"/>
-            <tag_detection_check service_name="filter_apriltag_detection" goal="21"/>
-            <vacuum_check service_name="VacuumCheckService"/>
-            
-            <Decorator ID="RetryUntilSuccessful" num_attempts="4">
-                <Action ID="PickAction" goal="21" server_name="/pick_server" timeout="500"/>
-            </Decorator>
-            <Decorator ID="RetryUntilSuccessful" num_attempts="4">
-                <Action ID="MoveBaseAction" goal="0;0;0;0;0;0.99;0" server_name="/move_base" timeout="500"/>
-            </Decorator>
-            <Decorator ID="RetryUntilSuccessful" num_attempts="4">
-                <Action ID="PlaceAction" goal="21" server_name="/place_server" timeout="500"/>
-            </Decorator>
-        </Sequence>
-  </BehaviorTree>
-  <!-- ////// -->
-  <TreeNodesModel>
-      <Action ID="MoveBaseAction">
-        <input_port name="goal" type="std::string"/>
-        <input_port name="server_name" type="std::string">name of the Action Server</input_port>
-        <input_port name="timeout" type="unsigned int">timeout to connect (milliseconds)</input_port>
-      </Action>
-      <Action ID="PickAction">
-        <input_port name="id" type="std::string"/>
-        <input_port name="server_name" type="std::string">name of the Action Server</input_port>
-        <input_port name="timeout" type="unsigned int">timeout to connect (milliseconds)</input_port>
-    </Action>
-    <Action ID="PlaceAction">
-        <input_port name="id" type="std::string"/>
-        <input_port name="server_name" type="std::string">name of the Action Server</input_port>
-        <input_port name="timeout" type="unsigned int">timeout to connect (milliseconds)</input_port>
-    </Action>
-  </TreeNodesModel>
+<root main_tree_to_execute="BehaviorTree">
+  <BehaviorTree ID="BehaviorTree"><Fallback name="recovery_initialization"><initialising_tree name="initialising_tree"/><Sequence name="recovery_sequence"><Sequence>
+        <Decorator ID="RetryUntilSuccessful" num_attempts="4">
+          <Action ID="ScanFloor" tag="1" server_name="/scan_floor_server" timeout="500"/>  
+        </Decorator>
+        <!-- <Action ID="ApproachAction" tag="1" offset="1.1" server_name="/approach_action" timeout="500"/> -->
+        <Action ID="ApproachAction" tag="1" offset="1.1" server_name="/approach_action" timeout="500"/>
+        <Action ID="PickFromFloorAction" tag="1" server_name="/pick_from_floor_server" timeout="500"/>
+</Sequence></Sequence></Fallback></BehaviorTree>
 </root>

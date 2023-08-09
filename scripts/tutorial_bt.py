@@ -11,9 +11,7 @@ from tree_msgs.msg import GeneratebtAction, GeneratebtGoal
 from lxml import etree
 
 def setpath():
-    """
-    This function sets the path to the tree xml from the relative path of the package
-    """
+    # This function sets the path to the tree xml from the relative path of the package
     rp = RosPack()
     package_path = rp.get_path("bt_tests")
     relative = os.path.join("include/ontology/IEEE-1872-2015/")
@@ -25,6 +23,13 @@ onto = get_ontology("btowl.owl")
 onto.load()
 # sync_reasoner()
 
+index = 0
+
+def add_index(element):
+    global index
+    element = set_attribute_in_element(element,"index",str(index+1))
+    index +=1
+    return element
 
 def Gbt(xml):
     
@@ -128,6 +133,7 @@ def update_goal_tag(tag,sbt):
 
 def which_actions(actions,requested_action):
     for action in actions:
+        print("whichaction",action[0].name,requested_action)
         if requested_action in action[0].name:
             return action[0]
         
@@ -136,7 +142,14 @@ def which_postchecks(action):
     return instance.hasChecks
     
 def find_checks_and_actions(goal_instance):
-    class_name = goal_instance.__class__
+    if "Affordance" in goal_instance.__class__.__name__:
+        class_name = goal_instance.__class__
+    else:
+        class_name_temp = goal_instance.__class__.__name__+"Affordance"
+        for cla in onto.classes():
+            if cla.__name__==class_name_temp:
+                class_name = cla    
+                break
     class_individuals = class_name.instances()
     actions_with_effect = []
     checks_for_effect = []
@@ -146,12 +159,14 @@ def find_checks_and_actions(goal_instance):
                 # print(f"Instance Name: {individual}")
                 actions=individual.Effect
                 checks=individual.hasChecks
+                # print("classss", actions,checks)
                 actions_with_effect.append(actions)
                 checks_for_effect.append(checks)
     return checks_for_effect,actions_with_effect
 
 def get_goal_details(goal, details=None):
     goal_instance = find_individual(goal)
+
     try: 
         if len(goal_instance)>1:
             if details is not None:
@@ -174,6 +189,7 @@ def get_goal_details(goal, details=None):
 
     try: 
         sorted = sort_dataproperty_destination(gdp)
+        # print("goalinstance", goal_instance)
         return goal_instance, 0,(goal_instance,sorted)
     except: 
         goal_location = goal_instance.located
@@ -190,30 +206,46 @@ def get_action_for_condition(condition):
             print("individual found ", individual.name)
             postcondtion_instance = individual.isCheckFor[0]
             actions_with_postcondtion = postcondtion_instance.Effect
-            print(actions_with_postcondtion)
             return actions_with_postcondtion
 
 def create_atomicBT(root, actions):
     action_seq = []
     if len(actions)>1:
-        atomic_selector = etree.Element("Selector", name="multiple_actions_Fallback")
+        atomic_selector = etree.Element("Fallback", name="multiple_actions_Fallback")
     for act in actions:
+        # print("ACCCtIONS",act)
         if act.Precondition:
             precon = act.Precondition
-            for con in precon:
+            for con in reversed(precon):
                 action_seq.append(con.hasChecks[0].Subtree[0])
 
         if act.Treemodel:
             root.append(etree.fromstring(act.Treemodel[0]))
         try: 
+            # fb_branch = etree.Element("Fallback", name=act.name+"_Fallback_branch")
+            # act_fb = act.hasFallback
+            # if act.hasFallback:
+            #     print("@####@#!#@",act.name)
+
+            #     act_fb = act.hasFallback
+            #     fb_branch.append(etree.fromstring(act.Subtree[0]))
+            #     fb_branch.append(etree.fromstring(act_fb[0].Subtree[0]))
+            #     action_seq.append(etree.tostring(fb_branch))
+            # else:
             action_seq.append(act.Subtree[0])
 
         except:
-             rospy.logerr("Action %s has no subtree to satisfy it!",str(act.name))
-        atomic_sequence = etree.Element("Sequence", name=act.name+"_sequence")
-        for string in action_seq:
+            rospy.logerr("Action %s has no subtree to satisfy it!",str(act.name))
 
-            atomic_sequence.append(etree.fromstring(string))
+        atomic_sequence = etree.Element("Sequence", name=act.name+"_sequence")
+
+        for i, string in enumerate(action_seq):
+            if i == len(action_seq) - 1:
+                atomic_sequence.append(etree.fromstring(string))
+            else:
+                conBT = etree.fromstring(string)
+                conBT = add_index(conBT)
+                atomic_sequence.append(conBT)
         try: 
             atomic_selector.append(atomic_sequence)
         except:
@@ -234,102 +266,122 @@ class TreeMonitorSubscriber:
 
     def get_failed_check(self):
          # Get the latest received message
-        return self.latest_message
+        split_values = self.latest_message.split(',')
+        return split_values[0],split_values[1]
     
-def parse_goal(action_required,goal_direct,goal_details):
+def parse_goal(action_required,goal_direct,goal_details,destination):
 
     goal_instance,tag ,location = get_goal_details(goal_direct,goal_details)
-    print("##############",tag)
+    if destination is not None:
+        destination,_,_ = get_goal_details(destination)
+    # print("##############",destination,goal_instance)
     checks, actions = find_checks_and_actions(goal_instance)
-    
     related_action = which_actions(actions,action_required)
+    # print("related",related_action)
     try:
         related_checks = which_postchecks(related_action)
-        return related_checks,related_action,tag, location
+        return related_checks,related_action,tag, location, destination
     except:
         return checks[0],actions[0],tag,location
 
+def new_parser(action_required, object, destination):
+    object_individual = find_individual(object)
+    if destination:
+        destination_individual = find_individual(destination)
+    else:
+        destination_individual = destination
+    object_location = object_individual.located
+    checks,actions = find_checks_and_actions(object_individual)
+    goal_action = which_actions(actions,action_required)
+    print("$$$$$$$$$$$$$$$$$$$$$$$$",checks,actions,goal_action,object_location,destination_individual)
+    try:
+        goal_checks = which_postchecks(goal_action)
+        return goal_checks,goal_action,object_location,destination_individual
+    except:    
+        print("KNOWLEDGE IS LACKING...")
+
+
+
 if __name__ == "__main__":
     rospy.init_node('Gbt_node')
-    action_required = sys.argv[1]
-
-    if len(sys.argv)>2:
-        print("one product is requested")
-        product = sys.argv[2].split(",")
-        if len(product)==1:
-            goal_direct = product[0]
+    if len(sys.argv) > 1:
+        try:
+            action_required = sys.argv[1]
+            goal_direct = sys.argv[2]
+            destination = sys.argv[3]
+        except:
             goal_extras = None
-            print("product: ", goal_direct)
-        else:    
-            goal_direct = product[0]
-            goal_extras = product[1]
-            print("goal_direct",goal_direct)
-            print("goal_extras", goal_extras)
-
-    # if len(sys.argv)>3:
-    #     action_required = sys.argv[1]
-    #     for prods in range(2,len(sys.argv)):
-    #         print(prods)
-    #         product = sys.argv[prods].split(",")
-    #         if len(product)==1:
-    #             print("product: ", product[0])
-    #             goal_extras = None
-    #         else:    
-    #             print("product",product[0])
-    #             print("tag", product[1])
-
-        # try:
-        #     action_required = sys.argv[1]
-        #     goal_direct = sys.argv[2]
-        #     goal_extras = sys.argv[3]
-        # except:
-        #     goal_extras = None
-        
-    # goal_destination = "waypoint1"
-    # result = False
-    # action_required = "go"
-    # goal_direct = "home"
-    # action_required = "pick"
-    # goal_direct = "milk"
-    # goal_extras = None
-    # goal_extras = "21"
-
-    ## the following lines generate the tree
-    generate_base_xml()
-
+            destination = None
+    else:
+        # goal_destination = "waypoint1"
+        # result = False
+        # # action_required = "go"
+        # # goal_direct = "home"
+        action_required = "Drive"
+        goal_direct = None
+        goal_extras = None
+        # # goal_extras = "20"
+        destination = "PlacingLocation"
+    ### the following lines generate the tree
+    start_time1 = rospy.Time.now()
+    generate_base_xml("bt")
     BTparsed = TreeParser("include/trees/bt.xml")
     tree = BTparsed.update_tree()
-    BTparsed.add_groot_node()
-    result = Gbt("include/trees/bt.xml")
+    end_time1 = rospy.Time.now()
+    t1 = end_time1-start_time1
+    # BTparsed.add_groot_node()
+    # result = Gbt("include/trees/bt.xml")
     # BTparsed.remove_groot_node()
-
     ChecksMonitor = TreeMonitorSubscriber()
-    checks,actions,goal_tag,goal_location = parse_goal(action_required,goal_direct,goal_extras)
-    # # # print(checks,actions)
-    
-    for check in checks:
+    # checks,actions,goal_tag,goal_location,destination = parse_goal(action_required,goal_direct,goal_extras,destination)
+    start_time2 = rospy.Time.now()
+    goal_checks,goal_action,object_location,destination_individual = new_parser(action_required,goal_direct,destination)
+    # print("$$$$$$$$$$$$$$$$$$$$$$$$",goal_checks,goal_action,object_location,destination_individual)
+    for check in goal_checks:
         print(check)
         checktree = check.Subtree[0]
         checktree = etree.fromstring(checktree)
-        checktree = update_element_values(checktree,update_goal_location(goal_location[1],goal_location[0]), goal_tag)
-        # BTparsed.MainTree[0].append(checktree)
-        append_under_selector(BTparsed.MainTree[0],checktree)
+        if destination_individual:
+            # print("DESTY",destination_individual.name)
+            checktree = update_element_goals(checktree,destination_individual.name)
+        else: 
+            # print("GOALLOC",object_location[0])
+            checktree = update_element_goals(checktree,object_location[0].name)
+        checktree = add_index(checktree)
+        append_under_selector(BTparsed.MainTree,checktree)
         BTparsed.write_into_file()
+    end_time2 = rospy.Time.now()
+    t2 = end_time2-start_time2
+    t = t1+t2
+        # atomicBT = create_atomicBT(BTparsed.root,[goal_action])
+        # if destination_individual:
+        #     atomicBT = update_element_goals(atomicBT,destination_individual.name)
+        # else: 
+        #     atomicBT = update_element_goals(atomicBT,object_location[0].name)
+        # BTparsed.insert_atomicBT(checktree.tag,index,atomicBT)
 
-        goal_individual = find_individual(goal_direct)
-        find_info_about_goal(goal_individual)
+        # goal_individual = find_individual(goal_direct)
+        # find_info_about_goal(goal_individual)
     result = Gbt("include/trees/bt.xml")
     try:
+        # print("Latest message received:")
         while not result and not rospy.is_shutdown():
             rospy.loginfo('generated bt failed, recalculating')
-            failed_check = ChecksMonitor.get_failed_check()
+            start_time3 = rospy.Time.now()
+            failed_check, index_of_check = ChecksMonitor.get_failed_check()
             if failed_check:
                 try:
-                    print("Latest message received:", failed_check)
+                    print("Latest message received:", failed_check,index_of_check)
                     action_individuals = get_action_for_condition(failed_check)
                     atomicBT = create_atomicBT(BTparsed.root,action_individuals)
-                    atomicBT = update_element_values(atomicBT,update_goal_location(goal_location[1],goal_location[0]), goal_tag)
-                    BTparsed.insert_atomicBT(failed_check,atomicBT)
+                    if index_of_check == "1":
+                        atomicBT = update_element_goals(atomicBT,destination_individual.name)
+                    else:
+                        atomicBT = update_element_goals(atomicBT,object_location[0].name)
+                    BTparsed.insert_atomicBT(failed_check,index_of_check,atomicBT)
+                    end_time3 = rospy.Time.now()
+                    t3 = end_time3-start_time3
+                    t+=t3
                     result = Gbt("include/trees/bt.xml")
                 except:
                     print("Skill knowledgebase is lacking")
@@ -338,48 +390,12 @@ if __name__ == "__main__":
                 print("ROS Exception: failed check wasn't found")
                 break
         if result:
+            endtime = rospy.Time.now()
+            T = endtime - end_time1
             print("Tree was a success!")
+            print("TIME IT TOOK TO GENERATE BT IS: ", t.to_sec())
+            print("TIME IT TOOK TO GENERATE BT AND EXECUTE IT IS: ", T.to_sec())
 
-            ##### if more products repeat the last tree while still montioring it. 
-            if len(sys.argv)>3:
-                # action_required = sys.argv[1]
-                for prods in range(2,len(sys.argv)):
-                    product = sys.argv[prods].split(",")
-                    if len(product)==1:
-                        goal_direct = product[0]
-                        print("product: ", product[0])
-                        goal_extras = None
-                    else:    
-                        goal_direct = product[0]
-                        goal_extras = product[1]
-                    checks,actions,goal_tag,goal_location = parse_goal(action_required,goal_direct,goal_extras)
-                    BTparsed.tree = update_element_values(BTparsed.tree,update_goal_location(goal_location[1],goal_location[0]), goal_tag)
-                    BTparsed.write_into_file()
-                    result = Gbt("include/trees/bt.xml")
-                    try:
-                        while not result and not rospy.is_shutdown():
-                            rospy.loginfo('generated bt failed, recalculating')
-                            failed_check = ChecksMonitor.get_failed_check()
-                            if failed_check:
-                                try:
-                                    print("Latest message received:", failed_check)
-                                    action_individuals = get_action_for_condition(failed_check)
-                                    atomicBT = create_atomicBT(BTparsed.root,action_individuals)
-                                    atomicBT = update_element_values(atomicBT,update_goal_location(goal_location[1],goal_location[0]), goal_tag)
-                                    BTparsed.insert_atomicBT(failed_check,atomicBT)
-                                    result = Gbt("include/trees/bt.xml")
-                                except:
-                                    print("Skill knowledgebase is lacking")
-                                    
-                            else:
-                                print("ROS Exception: failed check wasn't found")
-                                break
-                        if result:
-                            print("Tree was a success!")
-                        else:
-                            print("an exception flag was up and bt failed to generate")
-                    except rospy.ROSInterruptException:
-                        pass
         else:
             print("an exception flag was up and bt failed to generate")
 
@@ -405,4 +421,3 @@ if __name__ == "__main__":
 
 
    
-

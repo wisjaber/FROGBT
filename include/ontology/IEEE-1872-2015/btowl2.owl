@@ -1,473 +1,365 @@
 <?xml version="1.0"?>
-<rdf:RDF xmlns="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#"
-     xml:base="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl"
-     xmlns:owl="http://www.w3.org/2002/07/owl#"
-     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-     xmlns:xml="http://www.w3.org/XML/1998/namespace"
-     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
-     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     xmlns:sumo="http://www.inf.ufrgs.br/phi-group/ontologies/sumo.owl#"
-     xmlns:btowl="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#">
-    <owl:Ontology rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl">
-        <owl:imports rdf:resource="http://www.inf.ufrgs.br/phi-group/ontologies/cora.owl"/>
-        <owl:imports rdf:resource="http://www.inf.ufrgs.br/phi-group/ontologies/coraX.owl"/>
-        <owl:imports rdf:resource="http://www.inf.ufrgs.br/phi-group/ontologies/sumo.owl"/>
-    </owl:Ontology>
-    
-
-
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Object Properties
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
-
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Conditions -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Conditions"/>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Effect -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Effect">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Conditions"/>
-        <owl:inverseOf rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Postcondition"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Postcondition -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Postcondition">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Conditions"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Precondition -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Precondition">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Conditions"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#hasActions -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#hasActions"/>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#hasChecks -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#hasChecks">
-        <owl:inverseOf rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#isCheckFor"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#hasGoal -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#hasGoal">
-        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#isCheckFor -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#isCheckFor"/>
-    
-
-
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Data properties
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
-
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#BT_properties -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#BT_properties"/>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Orientation -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Orientation">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#TransformationProperty"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#OrientationW -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#OrientationW">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Orientation"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#OrientationX -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#OrientationX">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Orientation"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#OrientationY -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#OrientationY">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Orientation"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#OrientationZ -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#OrientationZ">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Orientation"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#PhysicalObjectProperty -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#PhysicalObjectProperty"/>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Position -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Position">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#TransformationProperty"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#PositionX -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#PositionX">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Position"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#PositionY -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#PositionY">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Position"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#PositionZ -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#PositionZ">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Position"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Subtree -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Subtree">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#BT_properties"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#TransformationProperty -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#TransformationProperty">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#PhysicalObjectProperty"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Treemodel -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Treemodel">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#BT_properties"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#tag -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#tag"/>
-    
-
-
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Classes
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
-
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Checks -->
-
-    <owl:Class rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Checks">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Execution"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Execution -->
-
-    <owl:Class rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Execution">
-        <rdfs:subClassOf rdf:resource="http://www.inf.ufrgs.br/phi-group/ontologies/sumo.owl#Entity"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Location -->
-
-    <owl:Class rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Location">
-        <rdfs:subClassOf rdf:resource="http://www.inf.ufrgs.br/phi-group/ontologies/sumo.owl#Physical"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Product -->
-
-    <owl:Class rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Product">
-        <rdfs:subClassOf rdf:resource="http://www.inf.ufrgs.br/phi-group/ontologies/sumo.owl#Object"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Skills -->
-
-    <owl:Class rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Skills">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Execution"/>
-    </owl:Class>
-    
-
-
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Individuals
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
-
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#albert -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#albert">
-        <rdf:type rdf:resource="http://www.inf.ufrgs.br/phi-group/ontologies/cora.owl#Robot"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#detected -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#detected">
-        <rdf:type rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Product"/>
-        <Effect rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#find"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#find -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#find">
-        <rdf:type rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Skills"/>
-        <Postcondition rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#detected"/>
-        <Subtree rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;SubTree ID=&apos;find&apos;/&gt;</Subtree>
-        <Treemodel rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;BehaviorTree ID=&quot;find&quot;&gt;
-    &lt;Sequence name=&quot;find_Sequence&quot;&gt;
-        &lt;Fallback name=&quot;arm_home_Fallback&quot;&gt;
-            &lt;arm_home_check service_name=&quot;PoseCheckService&quot;/&gt;
-            &lt;MoveArmAction goal=&quot;True&quot; server_name=&quot;/move_arm_action&quot;/&gt;
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xml:base="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl"
+         xmlns="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#"
+         xmlns:cora="http://www.inf.ufrgs.br/phi-group/ontologies/cora.owl#"
+         xmlns:sumo="http://www.inf.ufrgs.br/phi-group/ontologies/sumo.owl#"
+         xmlns:cora2="http://www.inf.ufrgs.br/phi-group/ontologies/coraX.owl#">
+
+<owl:Ontology rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl">
+  <owl:imports rdf:resource="http://www.inf.ufrgs.br/phi-group/ontologies/cora.owl"/>
+  <owl:imports rdf:resource="http://www.inf.ufrgs.br/phi-group/ontologies/coraX.owl"/>
+  <owl:imports rdf:resource="http://www.inf.ufrgs.br/phi-group/ontologies/sumo.owl"/>
+</owl:Ontology>
+
+<owl:ObjectProperty rdf:about="#Conditions"/>
+
+<owl:ObjectProperty rdf:about="#Effect">
+  <rdfs:subPropertyOf rdf:resource="#Conditions"/>
+  <owl:inverseOf rdf:resource="#Postcondition"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#Postcondition">
+  <rdfs:subPropertyOf rdf:resource="#Conditions"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#Holdcondition">
+  <rdfs:subPropertyOf rdf:resource="#Conditions"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#Precondition">
+  <rdfs:subPropertyOf rdf:resource="#Conditions"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasActions"/>
+
+<owl:ObjectProperty rdf:about="#hasChecks">
+  <owl:inverseOf rdf:resource="#isCheckFor"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#isCheckFor"/>
+
+<owl:ObjectProperty rdf:about="#hasFallback"/>
+
+<owl:ObjectProperty rdf:about="#hasGoal">
+  <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#state"/>
+
+<owl:DatatypeProperty rdf:about="#BT_properties"/>
+
+<owl:DatatypeProperty rdf:about="#Orientation">
+  <rdfs:subPropertyOf rdf:resource="#TransformationProperty"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#TransformationProperty">
+  <rdfs:subPropertyOf rdf:resource="#PhysicalObjectProperty"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#OrientationW">
+  <rdfs:subPropertyOf rdf:resource="#Orientation"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#OrientationX">
+  <rdfs:subPropertyOf rdf:resource="#Orientation"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#OrientationY">
+  <rdfs:subPropertyOf rdf:resource="#Orientation"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#OrientationZ">
+  <rdfs:subPropertyOf rdf:resource="#Orientation"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#PhysicalObjectProperty"/>
+
+<owl:DatatypeProperty rdf:about="#Position">
+  <rdfs:subPropertyOf rdf:resource="#TransformationProperty"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#PositionX">
+  <rdfs:subPropertyOf rdf:resource="#Position"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#PositionY">
+  <rdfs:subPropertyOf rdf:resource="#Position"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#PositionZ">
+  <rdfs:subPropertyOf rdf:resource="#Position"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#Subtree">
+  <rdfs:subPropertyOf rdf:resource="#BT_properties"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#Treemodel">
+  <rdfs:subPropertyOf rdf:resource="#BT_properties"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#tag"/>
+
+<owl:Class rdf:about="#Checks">
+  <rdfs:subClassOf rdf:resource="#Execution"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Execution">
+  <rdfs:subClassOf rdf:resource="http://www.inf.ufrgs.br/phi-group/ontologies/sumo.owl#Entity"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Fallbacks">
+  <rdfs:subClassOf rdf:resource="#Execution"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Location">
+  <rdfs:subClassOf rdf:resource="http://www.inf.ufrgs.br/phi-group/ontologies/sumo.owl#Physical"/>
+</owl:Class>
+
+<owl:Class rdf:about="#LocationAffordance">
+  <rdfs:subClassOf rdf:resource="#Location"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Product">
+  <rdfs:subClassOf rdf:resource="http://www.inf.ufrgs.br/phi-group/ontologies/sumo.owl#Object"/>
+</owl:Class>
+
+<owl:Class rdf:about="#ProductAffordance">
+  <rdfs:subClassOf rdf:resource="#Product"/>
+</owl:Class>
+
+<owl:Class rdf:about="#RobotAffordance">
+  <rdfs:subClassOf rdf:resource="http://www.inf.ufrgs.br/phi-group/ontologies/cora.owl#Robot"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Skills">
+  <rdfs:subClassOf rdf:resource="#Execution"/>
+</owl:Class>
+
+<cora:Robot rdf:about="#albert">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</cora:Robot>
+
+<ProductAffordance rdf:about="#deliver">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <rdf:type rdf:resource="#Skills"/>
+  <Holdcondition rdf:resource="#vacuumCheck"/>
+  <Postcondition rdf:resource="#delivered"/>
+  <Precondition rdf:resource="#picked"/>
+  <hasFallback rdf:resource="#deliver_fallback"/>
+  <Subtree rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;Action ID="MoveBaseAction" goal="0.0;0.0;0.0;0.0;0.0;0.0;1.0" server_name="/move_base" timeout="500"/&gt;</Subtree>
+</ProductAffordance>
+
+<Checks rdf:about="#vacuumCheck">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <Subtree rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;vacuum_check service_name="VacuumCheckService"/&gt;</Subtree>
+</Checks>
+
+<ProductAffordance rdf:about="#delivered">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <Effect rdf:resource="#deliver"/>
+</ProductAffordance>
+
+<ProductAffordance rdf:about="#picked">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <Effect rdf:resource="#pick"/>
+</ProductAffordance>
+
+<Fallbacks rdf:about="#deliver_fallback">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <Subtree rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;Sequence&gt;
+        &lt;Decorator ID="RetryUntilSuccessful" num_attempts="4"&gt;
+          &lt;Action ID="ScanFloor" tag="1" server_name="/scan_floor_server" timeout="500"/&gt;  
+        &lt;/Decorator&gt;
+        &lt;!-- &lt;Action ID="ApproachAction" tag="1" offset="1.1" server_name="/approach_action" timeout="500"/&gt; --&gt;
+        &lt;Action ID="ApproachAction" tag="1" offset="1.1" server_name="/approach_action" timeout="500"/&gt;
+        &lt;Action ID="PickFromFloorAction" tag="1" server_name="/pick_from_floor_server" timeout="500"/&gt;
+&lt;/Sequence&gt;</Subtree>
+</Fallbacks>
+
+<Checks rdf:about="#delivered_check">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <isCheckFor rdf:resource="#delivered"/>
+  <Subtree rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;deliver_check service_name="DeliverCheck_Service" goal="0.0;0.0;0.0;0.0;0.0;0.0;1.0"/&gt;</Subtree>
+</Checks>
+
+<ProductAffordance rdf:about="#detected">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <Effect rdf:resource="#find"/>
+</ProductAffordance>
+
+<ProductAffordance rdf:about="#find">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <rdf:type rdf:resource="#Skills"/>
+  <Postcondition rdf:resource="#detected"/>
+  <Subtree rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;SubTree ID='find'/&gt;</Subtree>
+  <Treemodel rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;BehaviorTree ID="find"&gt;
+    &lt;Sequence name="find_Sequence"&gt;
+        &lt;Fallback name="arm_home_Fallback"&gt;
+            &lt;arm_home_check service_name="PoseCheckService"/&gt;
+            &lt;MoveArmAction goal="True" server_name="/move_arm_action"/&gt;
         &lt;/Fallback&gt;
-        &lt;Decorator ID=&quot;RetryUntilSuccessful&quot; num_attempts=&quot;4&quot;&gt;
-            &lt;Action ID=&quot;MoveBaseAction&quot; goal=&quot;-2.3;-0.5;0.0;0.0;0.0;0.99;0.0&quot; server_name=&quot;/move_base&quot; timeout=&quot;500&quot;/&gt;
+        &lt;Decorator ID="RetryUntilSuccessful" num_attempts="4"&gt;
+            &lt;Action ID="MoveBaseAction" goal="-2.3;-0.5;0.0;0.0;0.0;0.99;0.0" server_name="/move_base" timeout="500"/&gt;
         &lt;/Decorator&gt;
     &lt;/Sequence&gt;
 &lt;/BehaviorTree&gt;</Treemodel>
-    </owl:NamedIndividual>
-    
+</ProductAffordance>
 
+<Location rdf:about="#home">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <OrientationW rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</OrientationW>
+  <OrientationX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</OrientationX>
+  <OrientationY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</OrientationY>
+  <OrientationZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</OrientationZ>
+  <PositionX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</PositionX>
+  <PositionY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</PositionY>
+  <PositionZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</PositionZ>
+</Location>
 
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#home -->
+<Location rdf:about="#isAtLocation">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <rdf:type rdf:resource="#LocationAffordance"/>
+  <Effect rdf:resource="#movebase"/>
+  <OrientationW></OrientationW>
+  <OrientationX></OrientationX>
+  <OrientationY></OrientationY>
+  <OrientationZ></OrientationZ>
+  <PositionX></PositionX>
+  <PositionY></PositionY>
+  <PositionZ></PositionZ>
+</Location>
 
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#home">
-        <rdf:type rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Location"/>
-        <OrientationW rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</OrientationW>
-        <OrientationX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</OrientationX>
-        <OrientationY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</OrientationY>
-        <OrientationZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</OrientationZ>
-        <PositionX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</PositionX>
-        <PositionY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</PositionY>
-        <PositionZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</PositionZ>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#isAtLocation -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#isAtLocation">
-        <rdf:type rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Location"/>
-        <Effect rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#movebase"/>
-        <OrientationW></OrientationW>
-        <OrientationX></OrientationX>
-        <OrientationY></OrientationY>
-        <OrientationZ></OrientationZ>
-        <PositionX></PositionX>
-        <PositionY></PositionY>
-        <PositionZ></PositionZ>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#locationCheck -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#locationCheck">
-        <rdf:type rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Checks"/>
-        <isCheckFor rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#isAtLocation"/>
-        <Subtree rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;location_check service_name=&quot;LocationCheck_Service&quot; goal=&quot;0.0;0.0;0.0;0.0;0.0;0.0;1.0&quot;/&gt;</Subtree>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#milk -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#milk">
-        <rdf:type rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Product"/>
-        <sumo:located rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#waypoint1"/>
-        <tag rdf:datatype="http://www.w3.org/2001/XMLSchema#string">20</tag>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#milk2 -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#milk2">
-        <rdf:type rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Product"/>
-        <sumo:located rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#waypoint1"/>
-        <tag rdf:datatype="http://www.w3.org/2001/XMLSchema#string">21</tag>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#movebase -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#movebase">
-        <rdf:type rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Skills"/>
-        <Postcondition rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#isAtLocation"/>
-        <Subtree rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;Decorator ID=&quot;RetryUntilSuccessful&quot; num_attempts=&quot;4&quot;&gt;
-                &lt;Action ID=&quot;MoveBaseAction&quot; goal=&quot;0.0;0.0;0.0;0.0;0.0;0.0;1.0&quot; server_name=&quot;/move_base&quot; timeout=&quot;500&quot;/&gt;
+<ProductAffordance rdf:about="#movebase">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <rdf:type rdf:resource="#Skills"/>
+  <Postcondition rdf:resource="#isAtLocation"/>
+  <Subtree rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;Decorator ID="RetryUntilSuccessful" num_attempts="4"&gt;
+                &lt;Action ID="MoveBaseAction" goal="0.0;0.0;0.0;0.0;0.0;0.0;1.0" server_name="/move_base" timeout="500"/&gt;
 &lt;/Decorator&gt;</Subtree>
-    </owl:NamedIndividual>
-    
+</ProductAffordance>
 
+<Checks rdf:about="#locationCheck">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <isCheckFor rdf:resource="#isAtLocation"/>
+  <Subtree rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;location_check service_name="LocationCheck_Service" goal="0.0;0.0;0.0;0.0;0.0;0.0;1.0"/&gt;</Subtree>
+</Checks>
 
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#pick -->
+<Product rdf:about="#milk">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <sumo:located rdf:resource="#waypoint1"/>
+  <state rdf:resource="#stacked"/>
+  <tag rdf:datatype="http://www.w3.org/2001/XMLSchema#string">20</tag>
+</Product>
 
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#pick">
-        <rdf:type rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Skills"/>
-        <Postcondition rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#picked"/>
-        <Precondition rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#detected"/>
-        <Precondition rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#isAtLocation"/>
-        <Subtree rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;Decorator ID=&quot;RetryUntilSuccessful&quot; num_attempts=&quot;4&quot;&gt;
-                &lt;Action ID=&quot;PickAction&quot; tag=&quot;21&quot;   server_name=&quot;/pick_server&quot; timeout=&quot;500&quot;/&gt;
+<Location rdf:about="#waypoint1">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <OrientationW rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</OrientationW>
+  <OrientationX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</OrientationX>
+  <OrientationY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</OrientationY>
+  <OrientationZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.99</OrientationZ>
+  <PositionX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-2.3</PositionX>
+  <PositionY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-0.5</PositionY>
+  <PositionZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</PositionZ>
+</Location>
+
+<cora2:DesignObject rdf:about="#stacked">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</cora2:DesignObject>
+
+<Product rdf:about="#milk2">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <sumo:located rdf:resource="#waypoint1"/>
+  <state rdf:resource="#stacked"/>
+  <tag rdf:datatype="http://www.w3.org/2001/XMLSchema#string">19</tag>
+</Product>
+
+<Product rdf:about="#milk3">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <sumo:located rdf:resource="#waypoint1"/>
+  <state rdf:resource="#stacked"/>
+  <tag rdf:datatype="http://www.w3.org/2001/XMLSchema#string">18</tag>
+</Product>
+
+<Product rdf:about="#milk4">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <sumo:located rdf:resource="#waypoint1"/>
+  <state rdf:resource="#picked"/>
+  <tag rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1</tag>
+</Product>
+
+<ProductAffordance rdf:about="#pick">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <rdf:type rdf:resource="#Skills"/>
+  <Postcondition rdf:resource="#picked"/>
+  <Precondition rdf:resource="#detected"/>
+  <Precondition rdf:resource="#isAtLocation"/>
+  <Subtree rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;Decorator ID="RetryUntilSuccessful" num_attempts="4"&gt;
+                &lt;Action ID="PickAction" tag="21"   server_name="/pickstate_server" timeout="500"/&gt;
  &lt;/Decorator&gt;</Subtree>
-    </owl:NamedIndividual>
-    
+</ProductAffordance>
+
+<Checks rdf:about="#picked_check">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <isCheckFor rdf:resource="#picked"/>
+  <Subtree rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;picked_check service_name="pick_stateCheck" tag="20"/&gt;</Subtree>
+</Checks>
+
+<ProductAffordance rdf:about="#place">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <rdf:type rdf:resource="#Skills"/>
+  <Postcondition rdf:resource="#placed"/>
+  <Precondition rdf:resource="#picked"/>
+  <Subtree rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;Decorator ID="RetryUntilSuccessful" num_attempts="4"&gt;
+                &lt;Action ID="PlaceAction" tag="21"   server_name="/placestate_server" timeout="500"/&gt;
+ &lt;/Decorator&gt;</Subtree>
+</ProductAffordance>
+
+<ProductAffordance rdf:about="#placed">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <Effect rdf:resource="#place"/>
+</ProductAffordance>
+
+<Checks rdf:about="#placed_check">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <isCheckFor rdf:resource="#placed"/>
+  <Subtree rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;placed_check service_name="place_stateCheck" tag="20"/&gt;</Subtree>
+</Checks>
+
+<rdf:Description rdf:about="#product">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <tag rdf:datatype="http://www.w3.org/2001/XMLSchema#string"></tag>
+</rdf:Description>
+
+<Checks rdf:about="#tagDectectionCheck">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <isCheckFor rdf:resource="#detected"/>
+  <Subtree rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;tag_detection_check service_name="filter_apriltag_detection" tag="21"/&gt;</Subtree>
+</Checks>
+
+<Location rdf:about="#waypoint2">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <OrientationW rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</OrientationW>
+  <OrientationX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</OrientationX>
+  <OrientationY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</OrientationY>
+  <OrientationZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</OrientationZ>
+  <PositionX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.0</PositionX>
+  <PositionY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.25</PositionY>
+  <PositionZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</PositionZ>
+</Location>
 
 
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#picked -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#picked">
-        <rdf:type rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Product"/>
-        <Effect rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#pick"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#picked_check -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#picked_check">
-        <rdf:type rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Checks"/>
-        <isCheckFor rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#picked"/>
-        <Subtree rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;vacuum_check service_name=&quot;VacuumCheckService&quot; /&gt;</Subtree>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#product -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#product">
-        <tag rdf:datatype="http://www.w3.org/2001/XMLSchema#string"></tag>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#tagDectectionCheck -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#tagDectectionCheck">
-        <rdf:type rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Checks"/>
-        <isCheckFor rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#detected"/>
-        <Subtree rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;tag_detection_check service_name=&quot;filter_apriltag_detection&quot; tag=&quot;21&quot;/&gt;</Subtree>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#vacuumCheck -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#vacuumCheck">
-        <rdf:type rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Checks"/>
-        <Subtree rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;vacuum_check service_name=&quot;VacuumCheckService&quot;/&gt;</Subtree>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#waypoint1 -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#waypoint1">
-        <rdf:type rdf:resource="http://www.semanticweb.org/wissam/ontologies/2023/4/btowl#Location"/>
-        <OrientationW rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</OrientationW>
-        <OrientationX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</OrientationX>
-        <OrientationY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</OrientationY>
-        <OrientationZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.99</OrientationZ>
-        <PositionX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-2.3</PositionX>
-        <PositionY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-0.5</PositionY>
-        <PositionZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</PositionZ>
-    </owl:NamedIndividual>
 </rdf:RDF>
-
-
-
-<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
-

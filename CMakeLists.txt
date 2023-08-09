@@ -218,12 +218,14 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
-add_executable(first_tree "src/first_tree.cpp")
-target_link_libraries(first_tree  ${catkin_LIBRARIES} stdc++fs)
+add_executable(RBT "src/first_tree.cpp")
+target_link_libraries(RBT  ${catkin_LIBRARIES} stdc++fs)
 
-add_executable(double "scripts/xmltrials/double_tree.cpp")
-target_link_libraries(double  ${catkin_LIBRARIES} stdc++fs)
+# add_executable(double "scripts/xmltrials/double_tree.cpp")
+# target_link_libraries(double  ${catkin_LIBRARIES} stdc++fs)
 
 add_executable(genbt "src/generatetree1.cpp")
 target_link_libraries(genbt  ${catkin_LIBRARIES} stdc++fs)
 
+# add_executable(gen_tutorial "src/tutorial_treegen.cpp")
+# target_link_libraries(gen_tutorial  ${catkin_LIBRARIES} stdc++fs)

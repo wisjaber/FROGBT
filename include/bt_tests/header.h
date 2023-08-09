@@ -36,12 +36,14 @@
 #include <tree_msgs/VacuumCheck.h>
 #include <tree_msgs/LocationCheck.h>
 #include <tree_msgs/MoveArmAction.h>
-
+#include<tree_msgs/ApproachAction.h>
 #include <tree_msgs/PoseCheck.h>
 #include <tree_msgs/HomeCheck.h>  //this one for home pose at the start
-
+#include <tree_msgs/DeliverCheck.h>
+#include<tree_msgs/product_stateCheck.h>
 #include "types_template.h"
 #include<tree_msgs/GeneratebtAction.h>
+#include<tree_msgs/RecoveryAction.h>
 
 using namespace BT;
 
