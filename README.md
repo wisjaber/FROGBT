@@ -82,9 +82,11 @@ This scenario is preparing a list of products in the simulated environment. Ther
 cd workspace/src/FROGBT
 make simulation
 ```
-- sometimes the arm gets into singularity when loading the simulation 
+
+- sometimes the arm gets into singularity when loading the simulation. If that happened, run the following in a terminal
+
 ![alt text](https://github.com/wisjaber/FROGBT/blob/main/Pasted%20image%2020230908130020.png?raw=true)
-If that happened, run the following in a terminal
+
 	```bash
 make arm
 ```
