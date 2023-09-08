@@ -152,7 +152,38 @@
 <ProductAffordance rdf:about="#detected">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <Effect rdf:resource="#find"/>
+  <Effect rdf:resource="#scan_floor"/>
 </ProductAffordance>
+
+<Location rdf:about="#isAtLocation">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <rdf:type rdf:resource="#LocationAffordance"/>
+  <Effect rdf:resource="#movebase"/>
+  <OrientationW></OrientationW>
+  <OrientationX></OrientationX>
+  <OrientationY></OrientationY>
+  <OrientationZ></OrientationZ>
+  <PositionX></PositionX>
+  <PositionY></PositionY>
+  <PositionZ></PositionZ>
+</Location>
+
+<ProductAffordance rdf:about="#placed">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <Effect rdf:resource="#place"/>
+</ProductAffordance>
+
+<ProductAffordance rdf:about="#picked">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <Effect rdf:resource="#pick"/>
+  <Effect rdf:resource="#pick_from_floor"/>
+</ProductAffordance>
+
+<Checks rdf:about="#locationCheck">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <isCheckFor rdf:resource="#isAtLocation"/>
+  <Subtree rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;location_check service_name="LocationCheck_Service" goal="0.0;0.0;0.0;0.0;0.0;0.0;1.0"/&gt;</Subtree>
+</Checks>
 
 <ProductAffordance rdf:about="#find">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -172,32 +203,14 @@
 &lt;/BehaviorTree&gt;</Treemodel>
 </ProductAffordance>
 
-<Location rdf:about="#isAtLocation">
-  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  <rdf:type rdf:resource="#LocationAffordance"/>
-  <Effect rdf:resource="#movebase"/>
-  <OrientationW></OrientationW>
-  <OrientationX></OrientationX>
-  <OrientationY></OrientationY>
-  <OrientationZ></OrientationZ>
-  <PositionX></PositionX>
-  <PositionY></PositionY>
-  <PositionZ></PositionZ>
-</Location>
-
-<ProductAffordance rdf:about="#movebase">
+<RobotAffordance rdf:about="#movebase">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <rdf:type rdf:resource="#Skills"/>
   <Postcondition rdf:resource="#isAtLocation"/>
   <Subtree rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;Decorator ID="RetryUntilSuccessful" num_attempts="4"&gt;
                 &lt;Action ID="MoveBaseAction" goal="0.0;0.0;0.0;0.0;0.0;0.0;1.0" server_name="/move_base" timeout="500"/&gt;
 &lt;/Decorator&gt;</Subtree>
-</ProductAffordance>
-
-<ProductAffordance rdf:about="#placed">
-  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  <Effect rdf:resource="#place"/>
-</ProductAffordance>
+</RobotAffordance>
 
 <ProductAffordance rdf:about="#place">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -207,11 +220,6 @@
   <Subtree rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;Decorator ID="RetryUntilSuccessful" num_attempts="4"&gt;
                 &lt;Action ID="PlaceAction" tag="21"   server_name="/placestate_server" timeout="500"/&gt;
  &lt;/Decorator&gt;</Subtree>
-</ProductAffordance>
-
-<ProductAffordance rdf:about="#picked">
-  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  <Effect rdf:resource="#pick"/>
 </ProductAffordance>
 
 <ProductAffordance rdf:about="#pick">
@@ -225,12 +233,6 @@
  &lt;/Decorator&gt;</Subtree>
 </ProductAffordance>
 
-<Checks rdf:about="#locationCheck">
-  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  <isCheckFor rdf:resource="#isAtLocation"/>
-  <Subtree rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;location_check service_name="LocationCheck_Service" goal="0.0;0.0;0.0;0.0;0.0;0.0;1.0"/&gt;</Subtree>
-</Checks>
-
 <cora:Robot rdf:about="#albert">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
 </cora:Robot>
@@ -238,7 +240,7 @@
 <ProductAffordance rdf:about="#deliver">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <rdf:type rdf:resource="#Skills"/>
-  <Holdcondition rdf:resource="#vacuumCheck"/>
+  <Holdcondition rdf:resource="#picked_check"/>
   <Postcondition rdf:resource="#delivered"/>
   <Precondition rdf:resource="#picked"/>
   <hasFallback rdf:resource="#deliver_fallback"/>
@@ -309,21 +311,21 @@
 <Product rdf:about="#milk2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <sumo:located rdf:resource="#waypoint1"/>
-  <state rdf:resource="#placed"/>
+  <state rdf:resource="#stacked"/>
   <tag rdf:datatype="http://www.w3.org/2001/XMLSchema#string">19</tag>
 </Product>
 
 <Product rdf:about="#milk3">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <sumo:located rdf:resource="#waypoint1"/>
-  <state rdf:resource="#placed"/>
+  <state rdf:resource="#stacked"/>
   <tag rdf:datatype="http://www.w3.org/2001/XMLSchema#string">18</tag>
 </Product>
 
 <Product rdf:about="#milk4">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <sumo:located rdf:resource="#waypoint1"/>
-  <state rdf:resource="#placed"/>
+  <state rdf:resource="#stacked"/>
   <tag rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1</tag>
 </Product>
 
@@ -360,6 +362,42 @@
   <PositionY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.25</PositionY>
   <PositionZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</PositionZ>
 </Location>
+
+<Fallbacks rdf:about="#scan_floor">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <rdf:type rdf:resource="#Skills"/>
+  <Postcondition rdf:resource="#detected"/>
+  <Subtree rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;Decorator ID="RetryUntilSuccessful" num_attempts="4"&gt;
+          &lt;Action ID="ScanFloor" tag="1" server_name="/scan_floor_server" timeout="500"/&gt;  
+&lt;/Decorator&gt;</Subtree>
+</Fallbacks>
+
+<Fallbacks rdf:about="#pick_from_floor">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <rdf:type rdf:resource="#Skills"/>
+  <Postcondition rdf:resource="#picked"/>
+  <Precondition rdf:resource="#close_to_product"/>
+  <Subtree rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;Action ID="PickFromFloorAction" tag="1" server_name="/pick_from_floor_server" timeout="500"/&gt;</Subtree>
+</Fallbacks>
+
+<LocationAffordance rdf:about="#close_to_product">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <hasChecks rdf:resource="#closeCheck"/>
+</LocationAffordance>
+
+<Checks rdf:about="#closeCheck">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <isCheckFor rdf:resource="#close_to_product"/>
+  <Subtree rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;closeCheck service_name="close_stateCheck" /&gt;</Subtree>
+</Checks>
+
+<Fallbacks rdf:about="#approach_product">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <rdf:type rdf:resource="#Skills"/>
+  <Postcondition rdf:resource="#close_to_product"/>
+  <Precondition rdf:resource="#detected"/>
+  <Subtree rdf:datatype="http://www.w3.org/2001/XMLSchema#string">&lt;Action ID="ApproachAction" tag="1" offset="1.1" server_name="/approach_action" timeout="500"/&gt;</Subtree>
+</Fallbacks>
 
 
 </rdf:RDF>

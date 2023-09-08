@@ -1,5 +1,17 @@
 <root main_tree_to_execute="BehaviorTree">
-  <BehaviorTree ID="BehaviorTree"><Fallback name="deliver_check_Fallback"><deliver_check service_name="DeliverCheck_Service" goal="3.0;3.25;0.0;0.0;0.0;0.0;1.0" index="1"/><Sequence name="deliver_sequence"><Fallback name="picked_check_Fallback"><picked_check service_name="pick_stateCheck" tag="1" index="3"/><Sequence name="pick_sequence"><tag_detection_check service_name="filter_apriltag_detection" tag="1" index="4"/><location_check service_name="LocationCheck_Service" goal="-2.3;-0.5;0.0;0.0;0.0;0.99;0.0" index="5"/><Decorator ID="RetryUntilSuccessful" num_attempts="4">
-                <Action ID="PickAction" tag="1" server_name="/pickstate_server" timeout="500"/>
- </Decorator></Sequence></Fallback><Fallback name="deliver_Fallback_branch"><ReactiveSequence name="deliver_ReactiveSequence"><vacuum_check service_name="VacuumCheckService" index="2"/><Action ID="MoveBaseAction" goal="3.0;3.25;0.0;0.0;0.0;0.0;1.0" server_name="/move_base" timeout="500"/></ReactiveSequence><Action ID="RecoveryAction" action="deliver" idx="2" server_name="/recovery_action"/></Fallback></Sequence></Fallback></BehaviorTree>
-</root>
+  <BehaviorTree ID="BehaviorTree"><Fallback name="placed_check_Fallback"><placed_check service_name="place_stateCheck" tag="19" index="1"/><Sequence name="place_sequence"><Fallback name="picked_check_Fallback"><picked_check service_name="pick_stateCheck" tag="19" index="2"/><Sequence name="pick_sequence"><Fallback name="tag_detection_check_Fallback"><tag_detection_check service_name="filter_apriltag_detection" tag="19" index="3"/><Sequence name="find_sequence"><SubTree ID="find"/></Sequence></Fallback><location_check service_name="LocationCheck_Service" goal="-2.3;-0.5;0.0;0.0;0.0;0.99;0.0" index="4"/><Decorator ID="RetryUntilSuccessful" num_attempts="4">
+                <Action ID="PickAction" tag="19" server_name="/pickstate_server" timeout="500"/>
+ </Decorator></Sequence></Fallback><Decorator ID="RetryUntilSuccessful" num_attempts="4">
+                <Action ID="PlaceAction" tag="19" server_name="/placestate_server" timeout="500"/>
+ </Decorator></Sequence></Fallback></BehaviorTree>
+<BehaviorTree ID="find">
+    <Sequence name="find_Sequence">
+        <Fallback name="arm_home_Fallback">
+            <arm_home_check service_name="PoseCheckService"/>
+            <MoveArmAction goal="-2.3;-0.5;0.0;0.0;0.0;0.99;0.0" server_name="/move_arm_action"/>
+        </Fallback>
+        <Decorator ID="RetryUntilSuccessful" num_attempts="4">
+            <Action ID="MoveBaseAction" goal="-2.3;-0.5;0.0;0.0;0.0;0.99;0.0" server_name="/move_base" timeout="500"/>
+        </Decorator>
+    </Sequence>
+</BehaviorTree></root>

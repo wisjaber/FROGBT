@@ -145,6 +145,12 @@ def place_stateCheck_callback(request):
         response.response = False
         return response
 
+def close_stateCheck_callback(request):
+    response = product_stateCheckResponse()
+    ## always fail because no check can be made for this one yet
+    response.response = False
+    return response
+
 
 if __name__ == "__main__":
     rospy.init_node("servers_node")
@@ -154,8 +160,9 @@ if __name__ == "__main__":
     pick_stateCheckService = rospy.Service("pick_stateCheck", product_stateCheck, pick_stateCheck_callback)
     rospy.loginfo("pick_stateCheck Server is ready.")
     place_stateCheckService = rospy.Service("place_stateCheck", product_stateCheck, place_stateCheck_callback)
-    rospy.loginfo("pick_stateCheck Server is ready.")
-
+    rospy.loginfo("place_stateCheck Server is ready.")
+    close_stateCheckService = rospy.Service("close_stateCheck", product_stateCheck, close_stateCheck_callback)
+    rospy.loginfo("close_stateCheck Server is ready.")
     # Create the actions
     pickserver = MockPickServer()
     rospy.loginfo("PickAction Server is ready.")

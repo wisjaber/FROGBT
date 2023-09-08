@@ -27,6 +27,7 @@ int main(int argc, char **argv)
 
     RegisterRosService<picked_check>(factory, "picked_check", nh);
     RegisterRosService<placed_check>(factory, "placed_check", nh);
+    RegisterRosService<closeCheck>(factory, "closeCheck", nh);
 
     RegisterRosService<tag_detection_check>(factory, "tag_detection_check", nh);
     RegisterRosService<location_check>(factory, "location_check", nh);

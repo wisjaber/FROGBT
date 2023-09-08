@@ -111,17 +111,16 @@ def get_goals_from_check(element):
 
 def testymctestface(check,idx,root):
         # root = etree.fromstring(stringxml)
-        print("entering the search loop")
+        print("entering the search loop",check,idx)
         for child in root.iter(check):
             if "index" in child.attrib:
-                print("found something with index")
                 if int(child.attrib["index"]) == int(idx):
                     print("INDEX BEFORE INSERTING BT",idx)
                     check_element = deepcopy(child)
                     check_child = child
                     check_parent = child.getparent()
-                    print("check element",printtree(check_element))
-                    print(check_child.tag,check_child.get("name"),check_parent.tag,check_parent.get("name"))
+                    # print("check element",printtree(check_element))
+                    # print(check_child.tag,check_child.get("name"),check_parent.tag,check_parent.get("name"))
                     return check_element, check_child,check_parent
             else:
                 print("CHECK HAS NO INDEX",list(child))

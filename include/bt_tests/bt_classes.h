@@ -953,4 +953,51 @@ class placed_check: public RosServiceNode<tree_msgs::product_stateCheck>
 
   };
 
+class closeCheck: public RosServiceNode<tree_msgs::product_stateCheck>
+  {
+  public:
+    closeCheck( ros::NodeHandle& handle, const std::string& node_name, const NodeConfiguration & conf):
+    RosServiceNode<tree_msgs::product_stateCheck>(handle, node_name, conf) {}
+
+    static PortsList providedPorts()
+    {
+      return  {InputPort<std::string>("index")};
+    }
+
+    void sendRequest(RequestType& request) override
+    {
+      // doesn't matter cos we want it to always fail (no check for this)
+      request.tag = 20;
+      request.state= "flying";
+      ROS_INFO("sending close check request");
+    }
+
+    NodeStatus onResponse(const ResponseType& rep) override
+    {
+      ROS_INFO("response received");
+      if(rep.response)
+      {
+        ROS_ERROR("HOWWWWWWWW????");
+        return NodeStatus::SUCCESS;
+      }
+      else{
+        ROS_ERROR("Agent is not close");
+        auto idx = getInput<std::string>("index");
+        publishMessage("closeCheck,"+idx.value());
+        return NodeStatus::FAILURE;
+      }
+
+        return NodeStatus::SUCCESS;
+
+    }
+
+    virtual NodeStatus onFailedRequest(RosServiceNode::FailureCause failure) override
+    {
+      ROS_ERROR("request failed %d", static_cast<int>(failure));
+      return NodeStatus::FAILURE;
+    }
+
+
+  };
+
 #endif

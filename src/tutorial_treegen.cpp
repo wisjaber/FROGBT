@@ -1,8 +1,8 @@
 #include "../include/bt_tests/tutorialheader.h"
-#include "../include/bt_tests/bt_functions.h"
+#include "../include/bt_tests/tutorial_bt_functions.h"
 #include "../include/bt_tests/tutorial_classes.h"
-#include "../include/bt_tests/bt_generation_action.h"
-#include "../include/bt_tests/bt_actionserver.h"
+#include "../include/bt_tests/tutorial_bt_generation_action.h"
+#include "../include/bt_tests/tutorial_bt_actionserver.h"
 
 
 

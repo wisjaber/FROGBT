@@ -289,9 +289,10 @@ if __name__ == "__main__":
         except:
             goal_extras = None
             destination = None
+    destination = None
 
     # generate_base_xml()
-
+    start_time = time.time()
     BTparsed = TreeParser("include/trees/bt.xml")
     tree = BTparsed.update_tree()
     # BTparsed.add_groot_node()
@@ -307,10 +308,14 @@ if __name__ == "__main__":
         BTparsed.write_into_file()
 
     previous_failed_idx = "1"
+    end_time = time.time()
+    execution_time = end_time - start_time
+    print(f"Execution time: {execution_time:.6f} seconds")
     result = Gbt("include/trees/bt.xml")
     try:
         # print("Latest message received:")
         while not result and not rospy.is_shutdown():
+            start_time = time.time()
             rospy.loginfo('generated bt failed, recalculating')
             failed_check, index_of_check = ChecksMonitor.get_failed_check()
             if failed_check:
@@ -324,6 +329,11 @@ if __name__ == "__main__":
                     atomicBT = create_atomicBT(BTparsed.root,action_individuals)
                     atomicBT = update_element_values(atomicBT,update_goal_location(goal_location[1],goal_location[0]), goal_tag)
                     BTparsed.insert_atomicBT(failed_check,index_of_check,atomicBT)
+                    print("before time")
+                    end_time = time.time()
+                    t3 = end_time - start_time
+                    execution_time +=t3
+                    print(execution_time)
                     result = Gbt("include/trees/bt.xml")
                 except:
                     print("Skill knowledgebase is lacking")
@@ -333,9 +343,9 @@ if __name__ == "__main__":
                 break
         if result:
             print("Tree was a success!")
+            print(f"PLANNING time: {execution_time:.6f} seconds")
         else:
             print("an exception flag was up and bt failed to generate")
-
     except rospy.ROSInterruptException:
         pass
 

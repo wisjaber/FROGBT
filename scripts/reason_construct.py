@@ -10,10 +10,11 @@ from std_msgs.msg import String
 from tree_msgs.msg import GeneratebtAction, GeneratebtGoal, RecoveryAction, RecoveryActionGoal,RecoveryActionResult
 from lxml import etree
 from reset_onto import setpath
-from testy_client import *
+# from testy_client import Gbt
+from recoverymake import get4recovery, TreeMonitorSubscriber, add_index
 
 onto_path.append(setpath())
-onto = get_ontology("btowl2.owl")
+onto = get_ontology("btowl3.owl")
 onto.load()
 
 
@@ -39,7 +40,7 @@ def Gbt(xml):
     result = client.get_result()
     return result.success
     # Process the result
-    
+
 class RecoveryBranchManager:
     def __init__(self):
         self.pub = rospy.Publisher('tree_recovery', String, queue_size=10)  # Create a publisher
@@ -47,6 +48,7 @@ class RecoveryBranchManager:
             "recovery_action", RecoveryAction, self.execute, False
         )
         self.server.start()
+        self.listen = TreeMonitorSubscriber()
 
     def find_skill(self,action):
         skills = onto.Skills
@@ -54,41 +56,36 @@ class RecoveryBranchManager:
             if action in skill.name:
                 return skill
             
+    def find_goal_condition(self,FC):
+        checks_class = onto.Checks
+        for individual in checks_class.instances():
+            if FC in individual.Subtree[0]:
+                return individual
+
     def execute(self, goal):
         result =RecoveryActionResult()
-        
         rospy.loginfo(f"Received goal, action needs recovery: {goal.action}")
         skill = self.find_skill(goal.action)
-        act_fb = skill.hasFallback
-        recovery_branch = etree.fromstring(act_fb[0].Subtree[0])
+        FC,_ = self.listen.get_failed_check()
+        # FC= "picked_check" 
+        goal_check = self.find_goal_condition(FC)
+        recovery_start = etree.fromstring(goal_check.Subtree[0])
+        recovery_start = add_index(recovery_start)
         generate_base_xml("bt1")
-        BTparsed = TreeParser("include/trees/bt.xml")
         rbt = TreeParser("include/trees/bt1.xml")
-        tree = BTparsed.update_tree()
         rtree = rbt.update_tree()
-        action_element, action_child,action_parent = failed_action(goal.action,goal.index,tree)
         btwait = '<initialising_tree name="initialising_tree"/>'
         btwait = etree.fromstring(btwait)
         wait_parent = etree.Element("Fallback", name="recovery_initialization")
-        sequence = etree.Element("Sequence", name="recovery_sequence")
-        sequence.append(recovery_branch)
-        # recoverynode = action_element.pop
-        # action_element.remove(recoverynode)
-        # sequence.append(action_element)
-        # action_parent.replace(action_child,sequence)
+        # rbt.MainTree = append_under_selector(rbt.MainTree,recovery_start)
+        rec_branch = etree.Element("Fallback", name="recovery_branch")
+        rec_branch.append(recovery_start)
         wait_parent.append(btwait)
-        wait_parent.append(sequence)
+        wait_parent.append(rec_branch)
         rbt.MainTree.append(wait_parent)
         rbt.write_into_file()
         self.pub.publish("include/trees/bt1.xml")
         self.server.set_aborted()
-
-        # result = Gbt("include/trees/bt1.xml")
-        # if result:
-        #     rospy.loginfo("RECOVERY BRANCH HAS BEEN ADDED?")
-        #     self.server.set_succeeded()
-        # else:
-        #     self.server.set_aborted()
 
 if __name__ == "__main__":
     rospy.init_node("recovery_node")
