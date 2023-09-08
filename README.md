@@ -66,7 +66,7 @@ cd workspace/src/FROGBT
 make setup_scenario1
 ```
 - Start GROOT, if you have it, and choose monitor
-![[Pasted image 20230908110601.png]]
+![alt text](https://github.com/wisjaber/FROGBT/blob/main/Pasted%20image%2020230908110601.png?raw=true)
 - In another sourced terminal run
 ```bash
 make scenario1
