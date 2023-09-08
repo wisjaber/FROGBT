@@ -87,7 +87,7 @@ make simulation
 
 ![alt text](https://github.com/wisjaber/FROGBT/blob/main/Pasted%20image%2020230908130020.png?raw=true)
 
-	```bash
+```bash
 make arm
 ```
 - Run the servers in a sourced terminal by running
