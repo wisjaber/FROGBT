@@ -72,7 +72,7 @@ make setup_scenario1
 make scenario1
 ```
 - Immediately connect to GROOT to see the BT growing. Alternatively, you can see the tree execution in the first terminal
-![[Pasted image 20230908110755.png]]
+![alt text](https://github.com/wisjaber/FROGBT/blob/main/Pasted%20image%2020230908110755.png?raw=true)
 ### Scenario Two
 This scenario is preparing a list of products in the simulated environment. There are two different ways to evaluate it: Sequence List, and BT Reuse. 
 #### Sequence List
@@ -81,7 +81,7 @@ This scenario is preparing a list of products in the simulated environment. Ther
 cd workspace/src/FROGBT
 make simulation
 ```
-- sometimes the arm gets into singularity when loading the simulation ![[Pasted image 20230908130020.png]]If that happened, run the following in a terminal
+- sometimes the arm gets into singularity when loading the simulation ![alt text](https://github.com/wisjaber/FROGBT/blob/main/Pasted%20image%2020230908130020.png?raw=true)If that happened, run the following in a terminal
 	```bash
 make arm
 ```
