@@ -24,20 +24,20 @@ git clone https://github.com/BehaviorTree/BehaviorTree.ROS.git
 		```bash
 git clone --branch wisjaber-patch-1 https://github.com/wisjaber/Groot.git
 		```
-	- Since GROOT is only for visualization, if it doesn't work you can comment out the following line in the "bt_generation_action.h" and "tutorial_bt_generation_action.h" files
+Since GROOT is only for visualization, if it doesn't work you can comment out the following line in the "bt_generation_action.h" and "tutorial_bt_generation_action.h" files
 	 ```c++
 	PublisherZMQ publisher_zmq(tree_,200);
 ```
 - For the skills and simulated environment you need to request access to the gits from [AIRLab](https://icai.ai/airlab-delft/) 
-	- Clone the [Gazebo assets](https://github.com/tud-airlab/airlab_gazebo_assets) repo. (don't forget to source the environment variables as it says in the github)
+- Clone the [Gazebo assets](https://github.com/tud-airlab/airlab_gazebo_assets) repo. (don't forget to source the environment variables as it says in the github)
 		```bash
 	git clone https://github.com/tud-airlab/airlab_gazebo_assets.git
 ```
-	- Clone [Albert skills](https://github.com/tud-airlab/albert_skills) repo
+- Clone [Albert skills](https://github.com/tud-airlab/albert_skills) repo
 	```bash 
 	git clone https://github.com/tud-airlab/albert_skills.git
 	```
-	- Clone [Albert](https://github.com/tud-airlab/albert) repo
+- Clone [Albert](https://github.com/tud-airlab/albert) repo
 	```bash
 	git clone https://github.com/tud-airlab/albert.git
 ```
